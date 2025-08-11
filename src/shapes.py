@@ -1,7 +1,20 @@
 # ─────────────────────────────── file: shapes.py ───────────────────────────────
 """
-Simple geometry objects that demonstrate classes, inheritance, attributes,
-and cross-module calls for KG extraction.
+Knowledge Graph Extraction Demonstration: Geometry Classes
+
+This module is specifically designed as a demonstration codebase for knowledge graph 
+extraction tools. It showcases various code relationship types that KG extraction 
+systems identify and model as graph edges.
+
+The simple geometry domain (shapes, areas) provides clear examples of:
+- Class inheritance hierarchies (INHERITS_FROM edges)
+- Method definitions and calls (HAS_METHOD, CALLS edges)  
+- Cross-module dependencies (CALLS edges between modules)
+- Variable usage patterns (USES_VAR edges)
+- Function-to-method call relationships
+
+Each code construct is intentionally designed to demonstrate specific relationship
+types that would appear in a code knowledge graph.
 """
 
 from __future__ import annotations
@@ -50,3 +63,4 @@ def total_area(shapes: list[Shape]) -> float:
     Demonstrates a CALLS edge from a free function to class methods.
     """
     return sum(s.area() for s in shapes)
+
