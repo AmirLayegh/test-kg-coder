@@ -23,12 +23,20 @@ Cross-Module Relationships Demonstrated:
 
 import math
 
-PI: float = math.pi  # global constant
+PI: float = math.pi  # KG EDGE: Global constant - Creates USES_VAR edges when referenced
 
 
 def clamp(value: float, min_value: float, max_value: float) -> float:
     """
     Restrict *value* to the inclusive range ``[min_value, max_value]``.
+    
+    KG Extraction Note: This function demonstrates cross-module function calls.
+    When Rectangle.__init__() in shapes.py calls this function, it creates a 
+    CALLS edge: Rectangle.__init__ -> CALLS -> clamp (cross-module relationship).
+    
+    This pattern shows how KG extraction tools identify dependencies between
+    modules through function call relationships.
     """
     return max(min_value, min(value, max_value))
+
 
