@@ -29,11 +29,32 @@ relationship patterns without complex testing logic obscuring the KG concepts.
 
 import pytest
 
+# KG EDGE: IMPORTS - Creates dependency relationships between test module and production code
 from shapes import Circle, Rectangle, total_area
 
-def test_total_area():
+def test_total_area():  # KG EDGE: TestCase definition - Creates TestCase → Function relationships
+    """
+    Test the total_area function with mixed shape types.
+    
+    KG Extraction Note: This test function creates multiple relationship edges:
+    - TestCase → Function: test_total_area -> TESTS -> total_area
+    - TestCase → Class: test_total_area -> CALLS -> Circle constructor
+    - TestCase → Class: test_total_area -> CALLS -> Rectangle constructor
+    - TestCase → Framework: test_total_area -> USES -> pytest.approx
+    
+    This demonstrates how test cases create a web of relationships that KG extraction
+    tools can identify to understand test coverage and code dependencies.
+    """
+    # KG EDGE: CALLS - Test function calls Circle constructor
     circle = Circle(radius=1.0)
+    
+    # KG EDGE: CALLS - Test function calls Rectangle constructor  
     rect = Rectangle(width=2.0, height=3.0)
+    
     expected = 3.141592653589793 + 6.0
+    
+    # KG EDGE: CALLS - Test function calls total_area (the function being tested)
+    # KG EDGE: USES - Test function uses pytest.approx for floating-point comparison
     assert total_area([circle, rect]) == pytest.approx(expected)
+
 
