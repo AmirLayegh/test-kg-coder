@@ -26,11 +26,23 @@ import numpy as np
 from math_utils import PI, clamp
 
 
-class Shape:  # ──> Base class (tests :INHERITS_FROM edge)
-    """Abstract geometric shape."""
+class Shape:  # KG EDGE: Base class - Creates INHERITS_FROM edges to subclasses
+    """
+    Abstract geometric shape base class.
+    
+    KG Extraction Note: This class serves as the parent in inheritance relationships.
+    Circle and Rectangle classes inherit from this base class, creating INHERITS_FROM 
+    edges in the knowledge graph: Circle -> INHERITS_FROM -> Shape, 
+    Rectangle -> INHERITS_FROM -> Shape.
+    """
 
-    def area(self) -> float:
-        """Return area in square units."""
+    def area(self) -> float:  # KG EDGE: HAS_METHOD - Shape class defines area method
+        """
+        Return area in square units.
+        
+        KG Extraction Note: This method definition creates a HAS_METHOD edge
+        from Shape class to area method in the knowledge graph.
+        """
         raise NotImplementedError
 
 
@@ -64,5 +76,6 @@ def total_area(shapes: list[Shape]) -> float:
     Demonstrates a CALLS edge from a free function to class methods.
     """
     return sum(s.area() for s in shapes)
+
 
 
