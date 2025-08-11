@@ -22,6 +22,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import numpy as np
 
+# KG EDGE: IMPORTS - Creates dependency relationships between modules
 from math_utils import PI, clamp
 
 
@@ -63,4 +64,5 @@ def total_area(shapes: list[Shape]) -> float:
     Demonstrates a CALLS edge from a free function to class methods.
     """
     return sum(s.area() for s in shapes)
+
 
