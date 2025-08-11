@@ -107,12 +107,25 @@ class Rectangle(Shape):  # KG EDGE: INHERITS_FROM - Rectangle inherits from Shap
         return self.width * self.height  # KG EDGE: USES_VAR - accesses width/height attributes
 
 
-def total_area(shapes: list[Shape]) -> float:
+def total_area(shapes: list[Shape]) -> float:  # KG EDGE: Function definition
     """
     Sum the areas of an iterable of shapes.
-    Demonstrates a CALLS edge from a free function to class methods.
+    
+    KG Extraction Note: This function demonstrates function-to-method call relationships:
+    - CALLS edge: total_area function -> CALLS -> Shape.area method
+    - This creates a relationship between a standalone function and class methods
+    - The function operates on a list of Shape objects, calling their area() methods
+    - Demonstrates polymorphism: calls area() on different shape types (Circle, Rectangle)
+    
+    This pattern shows how KG extraction tools identify relationships between:
+    1. Functions and the methods they call
+    2. Functions and the classes/types they operate on
+    3. Polymorphic method calls across inheritance hierarchies
     """
-    return sum(s.area() for s in shapes)
+    # KG EDGE: CALLS - This function calls the area() method on each Shape object
+    # Creates function-to-method call relationships in the knowledge graph
+    return sum(s.area() for s in shapes)  # Polymorphic calls to Circle.area() or Rectangle.area()
+
 
 
 
