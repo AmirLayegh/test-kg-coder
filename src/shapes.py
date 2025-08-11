@@ -47,12 +47,26 @@ class Shape:  # KG EDGE: Base class - Creates INHERITS_FROM edges to subclasses
 
 
 @dataclass
-class Circle(Shape):
-    """A circle defined by its radius."""
-    radius: float
+class Circle(Shape):  # KG EDGE: INHERITS_FROM - Circle inherits from Shape
+    """
+    A circle defined by its radius.
+    
+    KG Extraction Note: This class demonstrates multiple relationship types:
+    1. INHERITS_FROM edge: Circle -> INHERITS_FROM -> Shape
+    2. HAS_METHOD edge: Circle -> HAS_METHOD -> area (method definition)
+    3. USES_VAR edge: area method -> USES_VAR -> radius (attribute access)
+    """
+    radius: float  # KG EDGE: HAS_ATTRIBUTE - Circle class has radius attribute
 
-    def area(self) -> float:  # HAS_METHOD; CALLS constant PI
-        return PI * self.radius**2
+    def area(self) -> float:  # KG EDGE: HAS_METHOD - Circle defines area method
+        """
+        Calculate circle area using π * r².
+        
+        KG Extraction Note: This method creates multiple edges:
+        - CALLS edge: area method -> CALLS -> PI (cross-module constant usage)
+        - USES_VAR edge: area method -> USES_VAR -> self.radius (attribute access)
+        """
+        return PI * self.radius**2  # KG EDGE: CALLS PI constant from math_utils module
 
 
 class Rectangle(Shape):
@@ -76,6 +90,7 @@ def total_area(shapes: list[Shape]) -> float:
     Demonstrates a CALLS edge from a free function to class methods.
     """
     return sum(s.area() for s in shapes)
+
 
 
 
