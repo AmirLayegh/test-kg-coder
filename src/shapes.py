@@ -69,19 +69,42 @@ class Circle(Shape):  # KG EDGE: INHERITS_FROM - Circle inherits from Shape
         return PI * self.radius**2  # KG EDGE: CALLS PI constant from math_utils module
 
 
-class Rectangle(Shape):
-    """Axis-aligned rectangle (width × height)."""
+class Rectangle(Shape):  # KG EDGE: INHERITS_FROM - Rectangle inherits from Shape
+    """
+    Axis-aligned rectangle defined by width × height.
+    
+    KG Extraction Note: This class demonstrates several relationship types:
+    1. INHERITS_FROM edge: Rectangle -> INHERITS_FROM -> Shape
+    2. HAS_METHOD edges: Rectangle -> HAS_METHOD -> __init__, area
+    3. Cross-module CALLS edges: __init__ method calls clamp() from math_utils
+    4. USES_VAR edges: Methods access width/height parameters and attributes
+    """
 
-    width: float
-    height: float
+    width: float   # KG EDGE: HAS_ATTRIBUTE - Rectangle class has width attribute
+    height: float  # KG EDGE: HAS_ATTRIBUTE - Rectangle class has height attribute
 
-    def __init__(self, width: float, height: float):
-        # USES_VAR width/height; CALLS clamp from another module
+    def __init__(self, width: float, height: float):  # KG EDGE: HAS_METHOD - Rectangle defines __init__
+        """
+        Initialize rectangle with clamped dimensions.
+        
+        KG Extraction Note: This constructor demonstrates cross-module function calls:
+        - CALLS edge: __init__ method -> CALLS -> clamp (from math_utils module)
+        - USES_VAR edges: __init__ -> USES_VAR -> width, height parameters
+        - External library usage: references np.inf from numpy
+        """
+        # KG EDGES: CALLS clamp function from math_utils module (cross-module dependency)
+        # KG EDGES: USES_VAR width/height parameters
         self.width = clamp(width, 0.0, np.inf)
         self.height = clamp(height, 0.0, np.inf)
 
-    def area(self) -> float:
-        return self.width * self.height
+    def area(self) -> float:  # KG EDGE: HAS_METHOD - Rectangle defines area method
+        """
+        Calculate rectangle area as width × height.
+        
+        KG Extraction Note: This method creates USES_VAR edges to self.width 
+        and self.height attributes.
+        """
+        return self.width * self.height  # KG EDGE: USES_VAR - accesses width/height attributes
 
 
 def total_area(shapes: list[Shape]) -> float:
@@ -90,6 +113,7 @@ def total_area(shapes: list[Shape]) -> float:
     Demonstrates a CALLS edge from a free function to class methods.
     """
     return sum(s.area() for s in shapes)
+
 
 
 
